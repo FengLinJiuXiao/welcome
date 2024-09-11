@@ -5,16 +5,10 @@
     <title>简单页面</title>
 </head>
 <body>
-    <h1>这是一个简单的HTML页面</h1>
-    <p>欢迎来到我的页面！‌</p>
+    <h1>Welcome to  Github from here!</h1>
 </body>
 <script>
-	var userAgent=navigator.userAgent.toLowerCase();
-	console.log(userAgent);
-	if(userAgent.indexOf("micromessenger")!=-1){
-			alert("微信");
-	}else{
-		alert("浏览器");
-	}
+	const  peech=new SpeechSynthesisUtterance("Welcome to  Github from here");
+	window.speechSynthesis.speak(speech);
 </script>
 </html>
