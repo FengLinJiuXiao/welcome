@@ -7,23 +7,23 @@
 <body>
     <h1>Welcome to  Github from here!</h1>
 	
-	<button id="btn">播放</button>
+	<audio  style="display:none;" id="aud" src="https://fanyi.baidu.com/gettts?lan=zh&text=%E4%BD%A0%E5%A5%BD%E5%90%97%20%E4%B8%AD%E5%9B%BD&spd=3&source=web" controls="controls"></audio>
+	<button  id="btn"onclick="bf">播放</button>
+	
 
 </body>
 
 
 <script type="text/javascript">
-var button=document.getElementById("btn");
-button.addEventListener('click', function () {
-        alert("start");
-var u = new  SpeechSynthesisUtterance();
-u.text = "文字播放文字播放文字播放文字播放文字播放文字播放文字播放";
-u.lang = 'zh';
-u.rate = 0.7
-window.speechSynthesis.speak(u);
-alert("over");
-      });
-
+function bf(){
+	document.getElementById("aud").play();
+}
+var btn=document.getElementById("btn");
+btn.addEventListener('click', function () {
+        //alert('按钮被点击了')
+		document.getElementById("aud").play();
+      })
+ 
   </script>
 
 
