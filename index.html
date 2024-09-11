@@ -7,9 +7,24 @@
 <body>
     <h1>Welcome to  Github from here!</h1>
 	<script>
-	const  speech=new SpeechSynthesisUtterance("Welcome to  Github from here");
-	window.speechSynthesis.speak(speech);
-</script>
+	if (window.SpeechRecognition || window.webkitSpeechRecognition) {
+	console.log("浏览器支持 Web Speech API");
+	alert("浏览器支持 Web Speech API");
+	} else {
+	console.log("浏览器不支持 Web Speech API");
+	alert("浏览器不支持 Web Speech API");
+	}
+
+		console.log("start");
+		var speech=new SpeechSynthesisUtterance("欢迎来到社区");
+		speech.lang="zh-CN";
+		speech.rate=1;
+		speech.volume=1;
+		speech.pitch=1;
+		window.speechSynthesis.cancel();
+		window.speechSynthesis.speak(speech);
+		console.log("end");
+	</script>
 </body>
 
 </html>
