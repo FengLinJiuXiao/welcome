@@ -6,7 +6,13 @@
 </head>
 <body>
     <h1>Welcome to  Github from here!</h1>
+	<button id="speak-button">朗读</button>
+	
 	<script>
+	
+	var  speakButton = document.getElementById('speak-button');
+	speakButton.addEventListener('click', function() {
+	
 	if (window.SpeechRecognition || window.webkitSpeechRecognition) {
 	console.log("浏览器支持 Web Speech API");
 	alert("浏览器支持 Web Speech API");
@@ -24,6 +30,14 @@
 		window.speechSynthesis.cancel();
 		window.speechSynthesis.speak(speech);
 		console.log("end");
+	
+	
+	
+	
+	});
+	
+	
+	
 	</script>
 </body>
 
