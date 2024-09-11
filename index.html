@@ -1,143 +1,42 @@
 ﻿<!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-    <style>
-        .btn-group{
-            margin: 20px 0;
-        }
-        .btn{
-            color: #ffffff;
-            padding: 10px;
-            cursor: pointer;
-        }
-        .read-btn {
-            background-color: #0000ff;
-        }
-        .stop-btn{
-            background-color: #ff0000;
-        }
-        .pause-btn {
-            background-color: #00ff00;
-        }
-        .resume-btn{
-            background-color: #00ffff;
-        }
-        .msg-style{
-            font-size: 18px;
-        }
-    </style>
-</head>
-<body>
-<div class="btn-group">
-    <span id="readBtn" class="btn read-btn">开始阅读</span>
-    <span id="stopBtn" class="btn stop-btn">停止阅读</span>
-    <span id="pauseBtn" class="btn pause-btn">暂停阅读</span>
-    <span id="resumeBtn" class="btn resume-btn">恢复阅读</span>
-</div>
-<div id="msg" class="msg-style"></div>
-<script type="module">
-    // import {msg} from "./msg.js"
-
-    // 文本内容
-    const msg = 'Vue (读音 /vjuː/，类似于 view) 是一套用于构建用户界面的渐进式框架。与其它大型框架不同的是，Vue 被设计为可以自底向上逐层应用。' +
-        'Vue 的核心库只关注视图层，不仅易于上手，还便于与第三方库或既有项目整合。另一方面，当与现代化的工具链以及各种支持类库结合使用时，Vue 也' +
-        '完全能够为复杂的单页应用提供驱动。\n' +
-        '\n' +
-        '如果你想在深入学习 Vue 之前对它有更多了解，我们制作了一个视频，带您了解其核心概念和一个示例工程。\n' +
-        '\n' +
-        '如果你已经是有经验的前端开发者，想知道 Vue 与其它库/框架有哪些区别，请查看对比其它框架。'
-
-    let voiceObj
-    let speakMsg
-
-    let readBtn = document.getElementById("readBtn")
-    let stopBtn = document.getElementById("stopBtn")
-    let pauseBtn = document.getElementById("pauseBtn")
-    let resumeBtn = document.getElementById("resumeBtn")
-
-    let text = document.getElementById('msg')
-    text.innerText = msg
-
-    readBtn.addEventListener('click', playVoice, false)
-    stopBtn.addEventListener('click', stopVoice, false)
-    pauseBtn.addEventListener('click', pauseVoice, false)
-    resumeBtn.addEventListener('click', resumeVoice, false)
-
-    function isIe() {
-        if (!!window.ActiveXObject || "ActiveXObject " in window) {
-            return true
-        } else {
-            return false
-        }
-    }
-
-    const synth = window.speechSynthesis;
-    let voices
-    function populateVoiceList() {
-        voices = synth.getVoices();
-
-        for (let i = 0; i < voices.length; i++) {
-            // console.log('--------------voices['+ i+']：', voices)
-            console.log(`${voices[i].name} (${voices[i].lang})`)
-            // console.log('===============================================')
-        }
-    }
-    populateVoiceList();
-    if (speechSynthesis.onvoiceschanged !== undefined) {
-        speechSynthesis.onvoiceschanged = populateVoiceList;
-    }
-
-    function playVoice() {
-        // console.log(isIe())
-        if (isIe()) {
-			console.log("当前是IE浏览器")
-            voiceObj = new ActiveXObject("Sapi.SpVoice")
-            voiceObj.Rate = -1
-            voiceObj.Volume = 60
-            voiceObj.Speak(msg, 1)
-        } else {
-		console.log("当前不是IE浏览器")
-            speakMsg = new SpeechSynthesisUtterance(msg)
-
-            speakMsg.addEventListener("start", (event) => {
-                console.log(`We have started uttering this speech: ${event.utterance.text}`);
-            });
-            speakMsg.addEventListener("mark", (event) => {
-                console.log(`A mark was reached: ${event.name}`);
-            });
-            speakMsg.addEventListener("boundary", (event) => {
-                console.log(
-                    `${event.name} boundary reached after ${event.elapsedTime} seconds.`
-                );
-            });
-
-            speakMsg.rate = 1
-            speakMsg.pitch = 1.5
-            speakMsg.voice = voices[1]
-            window.speechSynthesis.speak(speakMsg)
-
-            // 语言结束的回调
-            speakMsg.addEventListener('end', function () {
-                window.speechSynthesis.cancel() // 删除队列中全部的语音
-            })
-
-        }
-
-    }
-
-    function pauseVoice () {
-        window.speechSynthesis.pause()
-    }
-
-    function resumeVoice () {
-        window.speechSynthesis.resume()
-    }
-
-    function stopVoice () {
-        window.speechSynthesis.cancel()
-    }
-</script>
-</body>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<title>百度语音测试</title>
+		<script type="text/javascript"> 
+		function doTTS(){
+			var ttsDiv = document.getElementById('bdtts_div_id');
+			var ttsAudio = document.getElementById('tts_autio_id');
+			var ttsText = document.getElementById('ttsText').value;
+			
+			// 这样为什么替换不了播放内容
+			/*var ssrcc = 'http://tts.baidu.com/text2audio?lan=zh&ie=UTF-8&spd=10&text='+ttsText;
+			document.getElementById('tts_source_id').src=ssrcc;*/
+			
+			// 这样就可实现播放内容的替换了
+			ttsDiv.removeChild(ttsAudio);
+			var au1 = '<audio id="tts_autio_id" autoplay="autoplay">';
+			var sss = '<source id="tts_source_id" src="http://tts.baidu.com/text2audio?lan=zh&ie=UTF-8&spd=9&text='+ttsText+'" type="audio/mpeg">';
+			var eee = '<embed id="tts_embed_id" height="0" width="0" src="">';
+			var au2 = '</audio>';
+			ttsDiv.innerHTML = au1 + sss + eee + au2;
+			
+			ttsAudio = document.getElementById('tts_autio_id');
+			
+			ttsAudio.play();
+		}
+		</script>
+	</head>
+	<body>
+		<div>
+			<input type="text" id="ttsText">
+			<input type="button" id="tts_btn" onclick="doTTS()" value="播放">
+		</div>
+		<div id="bdtts_div_id">
+			<audio id="tts_autio_id" autoplay="autoplay">
+				<source id="tts_source_id" src="http://tts.baidu.com/text2audio?lan=zh&ie=UTF-8&spd=9&text=播报内容" type="audio/mpeg">
+				<embed id="tts_embed_id" height="0" width="0" src="">
+			</audio>
+		</div>
+	</body>
 </html>
