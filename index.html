@@ -7,15 +7,22 @@
 <body>
     <h1>Welcome to  Github from here!</h1>
 	
-	<button id="btn" onClick="dj">播放</button>
+	<button id="btn">播放</button>
 
 </body>
 
 
 <script type="text/javascript">
-function dj(){
-	new Audio("http://tts.youdao.com/fanyivoice?word=你好，我是你好&le=zh&keyfrom=speaker-target").play();
-}
+var button=document.getElementById("btn");
+button.addEventListener('click', function () {
+        console.log("start");
+var u = new  SpeechSynthesisUtterance();
+u.text = "文字播放文字播放文字播放文字播放文字播放文字播放文字播放";
+u.lang = 'zh';
+u.rate = 0.7
+window.speechSynthesis.speak(u);
+console.log("over");
+      });
 
   </script>
 
