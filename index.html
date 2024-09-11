@@ -15,13 +15,13 @@
 <script type="text/javascript">
 var button=document.getElementById("btn");
 button.addEventListener('click', function () {
-        console.log("start");
+        alert("start");
 var u = new  SpeechSynthesisUtterance();
 u.text = "文字播放文字播放文字播放文字播放文字播放文字播放文字播放";
 u.lang = 'zh';
 u.rate = 0.7
 window.speechSynthesis.speak(u);
-console.log("over");
+alert("over");
       });
 
   </script>
